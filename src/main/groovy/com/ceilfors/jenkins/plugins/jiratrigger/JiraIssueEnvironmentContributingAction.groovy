@@ -1,7 +1,6 @@
 package com.ceilfors.jenkins.plugins.jiratrigger
 
 import com.atlassian.jira.rest.client.api.domain.Issue
-import com.atlassian.jira.rest.client.api.domain.IssueField
 import hudson.EnvVars
 import hudson.model.AbstractBuild
 import hudson.model.EnvironmentContributingAction
@@ -26,8 +25,7 @@ class JiraIssueEnvironmentContributingAction implements EnvironmentContributingA
         this.issueTypeName = issue?.issueType?.name
 
         // Getting the Client Name i.e.: New Feature, Improvements etc...
-        IssueField issueField = issue?.getField(clientFieldIDString)
-        this.issueRelatedClientName = issueField?.name
+        this.issueRelatedClientName = issue?.getField(clientFieldIDString)?.name
     }
 
     @Override
