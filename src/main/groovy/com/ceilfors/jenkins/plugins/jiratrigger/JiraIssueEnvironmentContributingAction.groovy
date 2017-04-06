@@ -1,6 +1,7 @@
 package com.ceilfors.jenkins.plugins.jiratrigger
 
 import com.atlassian.jira.rest.client.api.domain.Issue
+import com.atlassian.jira.rest.client.api.domain.IssueField
 import hudson.EnvVars
 import hudson.model.AbstractBuild
 import hudson.model.EnvironmentContributingAction
