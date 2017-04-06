@@ -19,20 +19,15 @@ class JiraIssueEnvironmentContributingAction implements EnvironmentContributingA
     final String clientFieldIDString = '10902'
 
     JiraIssueEnvironmentContributingAction(Issue issue) {
-        this.issueKey = issue.key
 
-        // Getting the Issue Type String i.e.: New Feature, Improvements etc...
-        if (issue.issueType) {
-            this.issueTypeName = issue.issueType.name
-        }
+        this.issueKey = issue?.key
+
+        // Getting the Issue Type String i.e.: New Feature, Improvements etc...            
+        this.issueTypeName = issue?.issueType?.name
 
         // Getting the Client Name i.e.: New Feature, Improvements etc...
-        IssueField issueField = issue.getField(clientFieldIDString)
-
-        if (issueField) {
-            this.issueRelatedClientName = issueField.name
-        }
-
+        IssueField issueField = issue?.getField(clientFieldIDString)
+        this.issueRelatedClientName = issueField?.name
     }
 
     @Override
