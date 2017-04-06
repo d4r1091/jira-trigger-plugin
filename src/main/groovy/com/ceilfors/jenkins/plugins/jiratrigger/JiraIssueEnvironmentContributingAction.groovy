@@ -11,14 +11,38 @@ import hudson.model.EnvironmentContributingAction
 class JiraIssueEnvironmentContributingAction implements EnvironmentContributingAction {
 
     String issueKey
+    String issueTypeName
+    String issueRelatedClientName
+
+    final String clientFieldNameKey = 'value'
+    final String clientFieldIDString = '10902'
 
     JiraIssueEnvironmentContributingAction(Issue issue) {
         this.issueKey = issue.key
+
+        // Getting the Issue Type String i.e.: New Feature, Improvements etc...
+        this.issueTypeName = issue.issueType.name
+
+        // Getting the Client Name i.e.: New Feature, Improvements etc...
+        IssueField issueField = issue.getFields(clientFieldIDString)
+
+        if (issueField) {
+            this.issueRelatedClientName = issueField.name
+        }
+
     }
 
     @Override
     void buildEnvVars(AbstractBuild<?, ?> build, EnvVars env) {
         env.put('JIRA_ISSUE_KEY', issueKey)
+
+        if (this.issueTypeName) {
+            env.put('JIRA_ISSUE_TYPE', issueTypeName)
+        }
+
+        if (this.issueRelatedClientName) {
+            env.put('JIRA_CLIENT_NAME', issueRelatedClientName)
+        }
     }
 
     @Override
