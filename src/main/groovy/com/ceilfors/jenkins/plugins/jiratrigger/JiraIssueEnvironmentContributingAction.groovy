@@ -25,7 +25,7 @@ class JiraIssueEnvironmentContributingAction implements EnvironmentContributingA
         this.issueTypeName = issue?.issueType?.name
 
         // Getting the Client Name i.e.: New Feature, Improvements etc...
-        this.issueRelatedClientName = issue?.getField(clientFieldIDString)?.name
+        this.issueRelatedClientName = issue?.getField(clientFieldIDString)?.value.toString()
     }
 
     @Override
