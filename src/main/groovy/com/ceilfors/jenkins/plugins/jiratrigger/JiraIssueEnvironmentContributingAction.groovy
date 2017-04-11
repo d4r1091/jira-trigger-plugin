@@ -1,6 +1,8 @@
 package com.ceilfors.jenkins.plugins.jiratrigger
 
 import com.atlassian.jira.rest.client.api.domain.Issue
+import com.atlassian.jira.rest.client.api.domain.IssueField
+
 import hudson.EnvVars
 import hudson.model.AbstractBuild
 import hudson.model.EnvironmentContributingAction
@@ -11,11 +13,10 @@ import hudson.model.EnvironmentContributingAction
 class JiraIssueEnvironmentContributingAction implements EnvironmentContributingAction {
 
     String issueKey
-    String issueTypeName
-    String issueRelatedClientName
+    String issueTypeName = null
+    String issueRelatedClientName = null
 
-    final String clientFieldNameKey = 'value'
-    final String clientFieldIDString = '10902'
+    final String clientFieldIDString = '12500'
 
     JiraIssueEnvironmentContributingAction(Issue issue) {
 
@@ -25,7 +26,8 @@ class JiraIssueEnvironmentContributingAction implements EnvironmentContributingA
         this.issueTypeName = issue?.issueType?.name
 
         // Getting the Client Name i.e.: New Feature, Improvements etc...
-        this.issueRelatedClientName = issue?.getField(clientFieldIDString)?.value.toString()
+        this.issueRelatedClientName = issue?.getField(clientFieldIDString)?.name
+
     }
 
     @Override
